@@ -70,7 +70,7 @@ body {
     height: 10%;
 }
 
-.choice-button {
+.choice-button{
     background-color: #a8dadc;
     border: none;
     border-radius: 10px;
@@ -89,7 +89,28 @@ body {
 .choice-button:active {
     transform: scale(0.95);
 }
+.back-button{
+    position: absolute; 
+    top: 80px; 
+    left: 100px; 
+    background-color: #34a9ad;
+    border: none;
+    border-radius: 10px;
+    color: #4a4a4a;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Georgia', serif;
+}
 
+.back-button:hover {
+    background-color: #ae5a41;
+}
+
+.back-button:active {
+    transform: scale(0.95);
+}
 @media (max-width: 600px) {
     #book-container {
         width: 100%;
@@ -100,4 +121,8 @@ body {
         font-size: 0.8em;
         padding: 8px 16px;
     }
+    /* .back-button {
+        font-size: 0.8em;
+        padding: 100px;
+    } */
 }
