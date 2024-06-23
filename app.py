@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify, url_for
 from storyprompt import buildPrompt
 from dotenv import load_dotenv
 from flask_socketio import SocketIO
-
+#Pytojs
 app = Flask(__name__)
 socketio = SocketIO(app)
 
@@ -68,7 +68,7 @@ def story():
     return render_template('story.html', story=story_response)
 
 
-   
+#pytojs
 
 @app.route('/continue_story', methods=['POST'])
 def continue_story():
