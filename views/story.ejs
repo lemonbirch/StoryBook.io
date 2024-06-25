@@ -1,53 +1,78 @@
-{% extends "base.html" %} {% block content %}
-<form action="/storychoicebuilder" method="GET">
-  <button class="back-button">Back</button>
-</form>
-<div id="book-container">
-  <div id="book">
-    <div id="story-container">
-      <div id="story">{{ story }}</div>
-    </div>
-    <div id="choices-container">
-      <button class="choice-button" onclick="makeChoice(1)">Choice 1</button>
-      <button class="choice-button" onclick="makeChoice(2)">Choice 2</button>
-      <button class="choice-button" onclick="makeChoice(3)">Choice 3</button>
-    </div>
-    <div id="reset-container">
-      <button class="choice-button" onclick="resetStory()">
-        Create New Story
-      </button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Story Builder.io</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/6bfc7e317c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <form action="/storychoicebuilder" method="GET">
+    <button class="back-button">Back</button>
+  </form>
+  <div id="book-container">
+    <div id="book">
+      <div id="story-container">
+        <div id="story">{{ story }}</div>
+      </div>
+      <div id="choices-container">
+        <button class="choice-button" onclick="makeChoice(1)">Choice 1</button>
+        <button class="choice-button" onclick="makeChoice(2)">Choice 2</button>
+        <button class="choice-button" onclick="makeChoice(3)">Choice 3</button>
+      </div>
+      <div id="reset-container">
+        <button class="choice-button" onclick="resetStory()">
+          Create New Story
+        </button>
+      </div>
     </div>
   </div>
-</div>
+  <script src="app.js"></script>
 
-<script>
-  function makeChoice(choice) {
-    fetch("/continue_story", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ choice: choice }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        document.getElementById("story").innerText = data.new_story;
+  <script>
+    function makeChoice(choice) {
+      fetch("/continue_story", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ choice: choice }),
       })
-      .catch((error) => console.error("Error:", error));
-  }
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("story").innerText = data.new_story;
+        })
+        .catch((error) => console.error("Error:", error));
+    }
 
-  function resetStory() {
-    fetch("/reset_story", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        document.getElementById("story").innerText = data.new_story;
+    function resetStory() {
+      fetch("/reset_story", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => console.error("Error:", error));
-  }
-</script>
-{% endblock %}
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("story").innerText = data.new_story;
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  </script>
+  {% endblock %}
+</html>
