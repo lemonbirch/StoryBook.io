@@ -47,14 +47,63 @@ const themes = ["A lonely cloud befriends a lost kite and helps it find its way 
 
 const names = ["Amelia", "Benjamin", "Cedric", "Daisy", "Elliot", "Finley", "Gloria", "Henry", "Isaac", "Jasper", "Juniper", "Kai", "Luna", "Mateo", "Nora", "Olivia", "Penelope", "Quinn", "Rory", "Stella", "Theodore", "Uma", "Vincent", "Willow", "Xavier", "Yasmin", "Zachariah", "Alice", "Bear", "Clementine", "Daniel", "Everly", "Fox", "Graham", "Hazel", "Iris", "Jasper", "Kingsley", "Milo", "Nova", "Oliver", "Penelope", "Ruby", "Silas", "Theodore", "Uma", "Violet", "Wesley", "Xavier", "Yolanda", "Zane"]
     
-    function generateTheme() { 
+export function generateTheme() { 
         var theme = themes[Math.floor(Math.random() * themes.length)];
         return theme
     }
-    function generateName() { 
+export function generateName() { 
         var name = names[Math.floor(Math.random() * names.length)];
         return name
     }
-console.log(generateName());
-console.log(generateTheme()); 
 
+let user_input_prompt = ""
+export  function checkParams(characterName, storyTheme)  {
+        const name = generateName(); 
+        const theme = generateTheme();
+        console.log(characterName)
+        if (characterName == "" && storyTheme != "") {
+            user_input_prompt = "Please use the following name " + name + " and theme: " + storyTheme
+        } else if ((characterName != "" && storyTheme == "")) {
+            user_input_prompt = "Please use the following name " + characterName + " and theme: " + theme
+
+        } else if (characterName != "" && storyTheme != "") {
+        
+            user_input_prompt = "Please use the following name " + characterName + " and theme: " + storyTheme
+        } else {
+            user_input_prompt = "Please use the following name " + name + " and theme: " + theme
+        }
+        console.log(name)
+        console.log(theme)
+        const prompt = buildStory(user_input_prompt)
+        return prompt
+    }
+    
+export function buildStory(user_input_prompt)  {
+    const storyPrompt = "Create a unique, short 5-page book for children aged 4-5 years old." + user_input_prompt + 
+    
+        " 1. Each page should follow this format: \
+        story: [Write a simple and engaging story for young children. Ensure each story section contributes to a coherent narrative with a clear beginning, middle, and end. Include elements such as introduction, build-up, climax, and resolution appropriate for a children's book.] \
+        choices: [Provide three short and simple choices of what can happen next. These choices should be logical and engaging, leading to different potential story developments.]\
+        The story should be age-appropriate, fun, and easy to understand. Make sure to provide three short and simple choices after each story section. Here is the structure: \
+        Page 1: \
+        story: [Start the story, introducing the main character and setting the scene.] \
+        choices: [Provide three choices that determine the next part of the story.]\
+        Page 2: \
+        story: [Continue the story based on the choice from Page 1, building up the plot.] \
+        choices: [Provide three choices that determine the next part of the story.] \
+        Page 3: \
+        story: [Further develop the story or introduce a climax based on the choice from Page 2.] \
+        choices: [Provide three choices that determine the next part of the story.]\
+        Page 4: \
+        story: [Move towards resolving the story based on the choice from Page 3.] \
+        choices: [Provide three choices that determine the next part of the story.] \
+        Page 5: \
+        story: [Conclude the story with a satisfying ending based on the choice from Page 4.] \
+        choices: The end \
+        Ensure that the story follows a typical children's book structure and reaches a satisfying conclusion by the fifth page. The stories should be unique and imaginative, providing a delightful experience for young readers. \
+        Make sure to only output the first page first so the user can make a choice that will affect the second page. \
+        Add relevent emojies to each choice so the user can easily identify them. "
+        return storyPrompt
+}
+
+  
