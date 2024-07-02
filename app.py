@@ -73,7 +73,6 @@ def story():
 @app.route('/continue_story', methods=['POST'])
 def continue_story():
     global story_list, promptBuilder
-    print("this test is for zackiqacky taki")
     print(story_list)
 
     data = request.json
